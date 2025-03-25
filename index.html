@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UniMarket - Marketplace Universitario</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2ecc71;
+            --accent-color: #f39c12;
+        }
+
+        body {
+            background-color: #f4f6f9;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+        }
+
+        .navbar-custom {
+            background-color: var(--primary-color);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .card-product {
+            transition: transform 0.3s ease;
+        }
+
+        .card-product:hover {
+            transform: scale(1.03);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .auth-section {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-seller {
+            background-color: rgba(255,255,255,0.9);
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Barra de Navegación -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="logo.png" alt="UniMarket Logo" width="30" height="30" class="d-inline-block align-text-top">
+                UniMarket
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="inicio">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="productos">Productos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="chat">Chat</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-warning" href="#" id="cerrar-sesion">Cerrar Sesión</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenido Principal -->
+    <main id="contenido-principal" class="container mt-4">
+        <!-- Sección de Autenticación -->
+        <section id="seccion-autenticacion" class="auth-section">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <div class="card shadow-lg">
+                            <div class="card-body p-5">
+                                <h2 class="text-center mb-4">Iniciar Sesión</h2>
+                                <form id="formulario-autenticacion">
+                                    <div class="mb-3">
+                                        <label for="correo" class="form-label">Correo Electrónico</label>
+                                        <input type="email" class="form-control" id="correo" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="contrasena" class="form-label">Contraseña</label>
+                                        <input type="password" class="form-control" id="contrasena" required>
+                                    </div>
+                                    <div class="d-grid">
+                                        <button type="submit" class="btn btn-primary">Ingresar</button>
+                                    </div>
+                                </form>
+                                <div class="text-center mt-3">
+                                    <a href="#" id="registrarse">¿No tienes cuenta? Regístrate</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de Selección de Rol -->
+        <section id="seccion-rol" class="d-none">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h2 class="mb-4">Selecciona tu Rol</h2>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="card card-body mb-3 role-card" data-rol="vendedor">
+                                            <i class="fas fa-store fa-3x text-primary mb-3"></i>
+                                            <h4>Vendedor</h4>
+                                            <p>Publica y vende tus productos</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="card card-body mb-3 role-card" data-rol="comprador">
+                                            <i class="fas fa-shopping-cart fa-3x text-success mb-3"></i>
+                                            <h4>Comprador</h4>
+                                            <p>Explora y compra productos universitarios</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de Productos para Vendedores -->
+        <section id="seccion-vendedor" class="d-none">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-header bg-primary text-white">
+                            Panel de Vendedor
+                        </div>
+                        <div class="card-body">
+                            <button class="btn btn-success w-100" id="agregar-producto">
+                                <i class="fas fa-plus"></i> Agregar Producto
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="row" id="lista-productos">
+                        <!-- Productos del vendedor se cargarán aquí -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de Productos para Compradores -->
+        <section id="seccion-comprador" class="d-none">
+            <div class="row" id="tienda-productos">
+                <!-- Todos los productos se cargarán aquí -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal para Agregar Producto -->
+    <div class="modal fade" id="modal-producto" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content modal-seller">
+                <div class="modal-header">
+                    <h5 class="modal-title">Agregar Nuevo Producto</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formulario-producto">
+                        <div class="mb-3">
+                            <label class="form-label">Nombre del Producto</label>
+                            <input type="text" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Precio</label>
+                            <input type="number" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Descripción</label>
+                            <textarea class="form-control" rows="3" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Imagen del Producto</label>
+                            <input type="file" class="form-control" accept="image/*" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Publicar Producto</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-storage-compat.js"></script>
+
+    <script>
+        // Configuración de Firebase
+        const firebaseConfig = {
+            apiKey: "TU_API_KEY",
+            authDomain: "TU_DOMINIO",
+            projectId: "TU_PROJECT_ID",
+            storageBucket: "TU_STORAGE_BUCKET",
+            messagingSenderId: "TU_SENDER_ID",
+            appId: "TU_APP_ID"
+        };
+
+        // Inicializar Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        // Aquí iría tu lógica de JavaScript para manejar autenticación, 
+        // selección de rol, subida de productos, etc.
+    </script>
+</body>
+</html>

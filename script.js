@@ -1,12 +1,4 @@
-// Configuración de Firebase
-const firebaseConfig = {
-  apiKey: "",
-  authDomain: "mercaduniversidad.firebaseapp.com",
-  projectId: "mercaduniversidad",
-  storageBucket: "mercaduniversidad.firebasestorage.app",
-  messagingSenderId: "379558481120",
-  appId: "1:379558481120:web:76f45aac72b7a7bfe51485"
-};
+// Configuración d
 
 // Inicializar Firebase
 firebase.initializeApp(firebaseConfig);
